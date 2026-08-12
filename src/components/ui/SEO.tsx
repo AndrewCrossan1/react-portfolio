@@ -14,7 +14,7 @@ export const SEO: React.FC<SEOProps> = ({
     canonical,
     ogImage = '/og-image.png',
 }) => {
-    const siteTitle = title.includes('Portfolio') ? title : `${title} | Alex Morgan`;
+    const siteTitle = title.includes('Portfolio') ? title : `${title} | Andrew Crossan`;
 
     return (
         <Helmet>
