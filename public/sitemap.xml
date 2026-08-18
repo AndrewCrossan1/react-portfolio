@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://yourdomain.com/</loc>
-        <lastmod>2026-08-12</lastmod>
+        <loc>https://andrewcrossan.live/</loc>
+        <lastmod>2026-08-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
+
+        <loc>https://andrewcrossan.live/projects</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+
+        <loc>https://andrewcrossan.live/experience</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+
+        <loc>https://andrewcrossan.live/stack</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+
+        <loc>https://andrew.crossan.live/terms</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+
+        <loc>https://andrew.crossan.live/privacy</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import type { HomeState } from '../types';
+import type { ExperienceState } from '../types';
 
-export const useHome = () => {
-    const [state] = useState<HomeState>({
+export const useExperience = () => {
+    const [state, setState] = useState<ExperienceState>({
         data: null,
         isLoading: false,
         error: null,

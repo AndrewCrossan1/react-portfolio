@@ -1,8 +1,11 @@
 import { Outlet, useLocation, ScrollRestoration } from 'react-router-dom';
-import { Header } from '@components/layout/Header';
 import { Footer } from '@components/layout/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
+import { Navbar } from '@components/layout/Navbar';
+import {CookieProvider} from "@/context/CookieContext.tsx";
+import {AnalyticsTracker} from "@components/analytics/AnalyticsTracker.tsx";
+import {CookieConsent} from "@components/ui/CookieConsent.tsx";
 
 const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => (
     <div className="p-8 text-center border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 rounded-xl my-8 transition-colors">
@@ -23,25 +26,29 @@ export const MainLayout = () => {
     const location = useLocation();
 
     return (
-        <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors">
-            <ScrollRestoration />
-            <Header />
-            <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={location.pathname}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    >
-                        <ErrorBoundary FallbackComponent={ErrorFallback} key={location.pathname}>
-                            <Outlet />
-                        </ErrorBoundary>
-                    </motion.div>
-                </AnimatePresence>
-            </main>
-            <Footer />
-        </div>
+        <CookieProvider>
+            <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans transition-colors">
+                <ScrollRestoration />
+                <Navbar />
+                <AnalyticsTracker/>
+                <main className="flex-1 max-w-7xl w-full mx-auto px-6">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={location.pathname}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.2, ease: 'easeInOut' }}
+                        >
+                            <ErrorBoundary FallbackComponent={ErrorFallback} key={location.pathname}>
+                                <Outlet />
+                            </ErrorBoundary>
+                        </motion.div>
+                    </AnimatePresence>
+                </main>
+                <Footer />
+                <CookieConsent />
+            </div>
+        </CookieProvider>
     );
 };

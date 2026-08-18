@@ -6,6 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio</title>
 
+    <!-- 1. Google Consent Mode v2 Defaults (Must run before gtag.js) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        // Read saved consent from localStorage if returning visitor
+        let initialAnalyticsConsent = 'denied';
+        try {
+            const savedPrefs = localStorage.getItem('site_cookie_consent_v1');
+            if (savedPrefs) {
+                const parsed = JSON.parse(savedPrefs);
+                if (parsed.analytics) initialAnalyticsConsent = 'granted';
+            }
+        } catch (e) {}
+
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': initialAnalyticsConsent
+        });
+
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+        gtag('js', new Date());
+        gtag('config', 'G-TGZ47VR91M', {
+            send_page_view: false, // Managed dynamically by React Router
+            cookie_domain: isLocal ? 'none' : 'auto',
+            debug_mode: isLocal
+        });
+    </script>
+
+    <!-- 2. Google Tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGZ47VR91M"></script>
+
     <!-- Adaptive mobile browser address bar color -->
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
