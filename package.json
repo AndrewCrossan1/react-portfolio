@@ -11,7 +11,9 @@
     "check": "oxlint && oxfmt --check . && tsc --noEmit",
     "generate:feature": "node generate-feature.js",
     "dev": "vite --host",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

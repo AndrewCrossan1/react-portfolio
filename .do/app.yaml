@@ -1,0 +1,17 @@
+name: my-portfolio
+static_sites:
+  - name: web
+    github:
+      branch: main
+      deploy_on_push: false
+      repo: andrewcrossan1/react-portfolio
+    build_command: npm run build
+    output_dir: dist
+    catchall_document: index.html
+    error_document: index.html
+    routes:
+      - path: /
+    envs:
+      - key: VITE_APP_G_MEASUREMENT_ID
+        value: G-TGZ47VR91M
+        scope: BUILD_TIME

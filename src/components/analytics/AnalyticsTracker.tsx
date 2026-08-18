@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCookieConsent } from '../../context/CookieContext';
 
-const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
+const GA_MEASUREMENT_ID = 'G-TGZ47VR91M';
 
 export const AnalyticsTracker: React.FC = () => {
     const location = useLocation();

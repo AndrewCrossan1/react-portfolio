@@ -1,4 +1,4 @@
-name: Auto Tag on Version Bump
+name: Auto Tag and Deploy
 
 on:
   push:
@@ -9,13 +9,27 @@ permissions:
   contents: write
 
 jobs:
-  tag_version:
+  tag_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Validate Build
+        env:
+          VITE_APP_G_MEASUREMENT_ID: G-TGZ47VR91M
+        run: npm run build
 
       - name: Read Version from package.json
         id: package_version
@@ -29,7 +43,7 @@ jobs:
         run: |
           TAG="${{ steps.package_version.outputs.version }}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
-            echo "Tag $TAG already exists. Skipping."
+            echo "Tag $TAG already exists. Skipping release creation."
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "Tag $TAG is new. Creating tag..."
@@ -48,3 +62,9 @@ jobs:
           git push origin "$TAG"
 
           gh release create "$TAG" --title "$TAG" --generate-notes
+
+      - name: Deploy to DigitalOcean App Platform
+        uses: digitalocean/app_action/deploy@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          app_spec_location: .do/app.yaml
